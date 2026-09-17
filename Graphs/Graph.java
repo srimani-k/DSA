@@ -131,4 +131,40 @@ public class Graph{
         return false;
     }
 
+    private static boolean checkTwoNodesAreConnected(int source, int destination, List<List<Integer>> graph){
+        boolean[] visited = new boolean[graph.size()];
+        boolean result = checkTwoNodesAreConnected(source, destination, visited,graph);
+        return result;
+    }
+    static boolean checkTwoNodesAreConnected(int node, int destination, boolean[] visited, List<List<Integer>> graph){
+        visited[node] = true;
+        if(node==destination){
+            return true;
+        }
+        for(int n : graph.get(node)){
+            if(!visited[n]){
+                if(checkTwoNodesAreConnected(n,destination,visited,graph)) return true;
+            }
+        }
+        return false;
+    }
+
+    static List<Integer> findAllNodesFromGivenNode(int node, List<List<Integer>> g){
+        boolean[] visited = new boolean[g.size()];
+        List<Integer> resultList =  new ArrayList<>();
+        return findAllNodesFromGivenNode(node,g,visited,resultList);
+
+    }
+    static List<Integer> findAllNodesFromGivenNode(int node, List<List<Integer>> g,boolean[] visited,List<Integer> result){
+        visited[node] = true;
+        result.add(node);
+
+        for(int n: g.get(node)){
+            if(!visited[n]){
+                findAllNodesFromGivenNode(n,g,visited,result);
+            }
+        }
+        return result;
+    }
+
 }
